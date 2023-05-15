@@ -1,8 +1,10 @@
 package pro.sky.diplom.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 
 /**
  * Класс сущности "Avatar"
