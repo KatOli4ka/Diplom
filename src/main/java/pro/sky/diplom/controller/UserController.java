@@ -131,11 +131,7 @@ public class UserController {
             tags = "Avatar"
     )
     @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> updateAvatar(Authentication authentication,
-                                             @Parameter(in = ParameterIn.DEFAULT,
-                                                     description = "Загрузите сюда новое фото",
-                                                     schema = @Schema())
-                                             @RequestPart(value = "image") MultipartFile image) {
+    public ResponseEntity<?> updateAvatar(Authentication authentication,@RequestParam MultipartFile image) {
         log.info("Был вызван метод контроллера для обновления аватара авторизованного пользователя");
         userService.updateUserImage(image, authentication);
         return ResponseEntity.ok().build();

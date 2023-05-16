@@ -207,11 +207,11 @@ public class AdsController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Найденная картинка"
-//                            content = @Content(
-//                                    mediaType = MediaType.IMAGE_PNG_VALUE,
-//                                    schema = @Schema(implementation = Byte[].class)
-//                            )
+                            description = "Найденная картинка",
+                            content = @Content(
+                                    mediaType = MediaType.IMAGE_PNG_VALUE,
+                                    schema = @Schema(implementation = Byte[].class)
+                            )
                     )
             }
     )

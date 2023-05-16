@@ -35,7 +35,7 @@ public class AvatarServiceImpl implements AvatarService {
     }
     @Override
     public Avatar getAvatarById(Integer id) {
-        log.info("Был вызван метод получения аватара по айди объявления");
+        log.info("Был вызван метод получения аватара по айди пользователя");
         User user = getUserById(id);
         Avatar avatar = user.getAvatar();
         if (avatar == null) {
