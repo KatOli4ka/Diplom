@@ -25,7 +25,7 @@ import pro.sky.diplom.service.CommentService;
 @CrossOrigin(value = "http://localhost:3000")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/ads")
 @Tag(name = "Комментарий", description = "CommentController")
 public class CommentController {
     private final CommentService commentService;
@@ -95,10 +95,12 @@ public class CommentController {
                                                     @PathVariable Integer comId,
                                                     Authentication authentication) {
         log.info("Был вызван метод контроллера для удаления комментария объявления");
-        commentService.deleteComment(adsId, comId, authentication);
+        if (commentService.deleteComment(adsId, comId, authentication)) {
+            return ResponseEntity.ok().build();
+        }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-
     }
+
 
     @Operation(summary = "Обновить комментарий",
             responses = {
