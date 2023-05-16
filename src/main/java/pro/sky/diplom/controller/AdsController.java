@@ -220,4 +220,9 @@ public class AdsController {
         log.info("Был вызван метод контроллера для просмотра картинки объявления");
         return ResponseEntity.ok(imageService.getAdsImageById(adsId).getData());
     }
+    @GetMapping("/{id}/image")
+    public ResponseEntity<byte[]> getImageFromAuthUser(@PathVariable int id) {
+        byte[] i = adsService.getAdsById(id).getAdsImage().getData();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(i);
+    }
 }

@@ -128,5 +128,10 @@ public class CommentController {
         return ResponseEntity.ok(commentService.updateComment(adsId, comId, updateCommentDto, authentication));
 
     }
+    @GetMapping("/comments/{id}/image")
+    public ResponseEntity<byte[]> getImageToComment(@PathVariable int id) {
+        byte[] i = commentService.getCommentById(id).getAuthor().getAvatar().getData();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(i);
+    }
 }
 
