@@ -70,6 +70,7 @@ public class AdsImageServiceImpl implements AdsImageService {
         log.info("<Был вызван метод получения объявления по его айди");
         return adsRepository.findById(adsId)
                 .orElseThrow(() -> new AdsNotFoundException("Объявление с id " + adsId + " не найдено!"));
+
     }
 }
 

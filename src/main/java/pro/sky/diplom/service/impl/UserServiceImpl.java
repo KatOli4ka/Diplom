@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import pro.sky.diplom.configuration.MyUserDetailsService;
 import pro.sky.diplom.dto.NewPasswordDto;
 import pro.sky.diplom.dto.UserDto;
 import pro.sky.diplom.entity.User;
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final AvatarService avatarService;
+    private final MyUserDetailsService myUserDetailsService;
 
 
     @Override
@@ -60,6 +62,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(newPasswordDto.getNewPassword()));
             userRepository.save(user);
             log.info("Пароль сохранен");
+            myUserDetailsService.loadUserByUsername(user.getEmail());
         } else {
             log.info("Неверный пароль!");
             throw new BadCredentialsException("Неверный пароль!");

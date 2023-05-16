@@ -40,7 +40,8 @@ public class UserController {
                     @ApiResponse(responseCode = "200", description = "Новый пароль"),
                     @ApiResponse(responseCode = "401", description = "Ошибочный ввод имени и/или пароля"),
                     @ApiResponse(responseCode = "403", description = "Доступ к запрошенному ресурсу запрещен")
-            }
+            },
+            tags = "Users"
     )
 
     @PostMapping("/set_password")
@@ -62,7 +63,8 @@ public class UserController {
                     ),
                     @ApiResponse(responseCode = "401",
                             description = "Для доступа к запрашиваемому ресурсу требуется аутентификация")
-            }
+            },
+            tags = "Users"
     )
 
     @GetMapping("/me")
@@ -83,7 +85,8 @@ public class UserController {
                     ),
                     @ApiResponse(responseCode = "401",
                             description = "Для доступа к запрашиваемому ресурсу требуется аутентификация")
-            }
+            },
+            tags = "Users"
     )
     @PatchMapping("/me")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, Authentication authentication) {
@@ -103,7 +106,8 @@ public class UserController {
                     ),
                     @ApiResponse(responseCode = "401",
                             description = "Для доступа к запрашиваемому ресурсу требуется аутентификация")
-            }
+            },
+            tags = "Avatar"
     )
 
     @GetMapping(value = "/{id}/image", produces = {MediaType.IMAGE_PNG_VALUE})
@@ -123,7 +127,8 @@ public class UserController {
                             responseCode = "401",
                             description = "Для доступа к запрашиваемому ресурсу требуется аутентификация"
                     )
-            }
+            },
+            tags = "Avatar"
     )
     @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> updateAvatar(Authentication authentication,
