@@ -26,10 +26,11 @@ import pro.sky.diplom.service.AdsService;
 
 import javax.validation.Valid;
 import java.io.IOException;
-
 /**
- * Класс контроллера объекта "Объявление"
+ * Класс - контроллер для работы с объявлениями и комментариями, содержащий набор API endpoints
  *
+ * @see AdsService
+ * @see AdsImageService
  * @author Одокиенко Екатерина
  */
 @Slf4j

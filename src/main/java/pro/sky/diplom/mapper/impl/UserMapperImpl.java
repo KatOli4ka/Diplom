@@ -8,7 +8,9 @@ import pro.sky.diplom.entity.User;
 import pro.sky.diplom.mapper.UserMapper;
 
 import java.util.Optional;
-
+/**
+ * Класс - сервис-маппер, содержащий реализацию интерфейса {@link UserMapper}
+ */
 @Slf4j
 @Component
 public class UserMapperImpl implements UserMapper {

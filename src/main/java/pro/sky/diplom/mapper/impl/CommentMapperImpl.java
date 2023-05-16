@@ -8,7 +8,9 @@ import pro.sky.diplom.mapper.CommentMapper;
 
 import java.time.ZoneId;
 import java.util.Optional;
-
+/**
+ * Класс - сервис-маппер, содержащий реализацию интерфейса {@link CommentMapper}
+ */
 @Slf4j
 @Component
 public class CommentMapperImpl implements CommentMapper {

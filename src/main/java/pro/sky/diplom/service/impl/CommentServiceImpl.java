@@ -38,6 +38,10 @@ public class CommentServiceImpl implements CommentService {
     private final AdsRepository adsRepository;
     private final UserRepository userRepository;
 
+    /**
+     * Метод получает комментарий к объявлению по id
+     * @param comId
+     */
     @Override
     public Comment getCommentById(int comId) {
         log.info("Был вызван метод получения комментария по его айди");
@@ -45,6 +49,10 @@ public class CommentServiceImpl implements CommentService {
                 new CommentNotFoundException("Комментарий не найден!"));
     }
 
+   /**
+    * Метод редактирует комментарий к объявлению по id
+    * @param adsId
+    */
     @Override
     public CommentDto updateComment(Integer adsId, Integer comId, CommentDto updateComment, Authentication authentication) {
         log.info("Был вызван метод изменения комментария");
@@ -62,8 +70,11 @@ public class CommentServiceImpl implements CommentService {
         log.info("Комментарий изменен");
         return commentMapper.toDto(comment);
     }
-
-
+   /**
+    * Метод удаляет комментарий к объявлению по id объявления
+    *
+    * @param adsId
+    */
     @Override
     public boolean deleteComment(Integer adsId, Integer comId, Authentication authentication) {
         log.info("Был вызван метод удаления комментария.");
@@ -81,7 +92,11 @@ public class CommentServiceImpl implements CommentService {
         log.info("Комментарий удален");
         return true;
     }
-
+   /**
+    * Метод создает комментарий к объявлению по id объявления
+    *
+    * @param adsId
+    */
     @Override
     public CommentDto addAdsComments(Integer adsId, CommentDto commentDto, Authentication authentication) {
         log.info("Был вызван метод добавления комментария");
@@ -97,6 +112,11 @@ public class CommentServiceImpl implements CommentService {
         return newCommentDto;
     }
 
+   /**
+    * Метод ищет и возвращает список всех комментариев
+    *
+    * @param adsId
+    */
     @Override
     public ResponseWrapperComment getCommentsByAdsId(Integer adsId) {
         log.info("Был вызван метод получения всех комментариев по id объявления");
@@ -119,12 +139,23 @@ public class CommentServiceImpl implements CommentService {
             return result;
         }
     }
+
+    /** Метод получения пользователя по email
+     *
+     * @param email
+     * @return
+     */
     public User getUserByEmail(String email) {
         log.info("Был вызван метод получения пользователя по email");
         return userRepository.findByEmail(email).orElseThrow(() ->
                 new UserNotFoundException("Пользователь не найден"));
     }
-
+    /** Метод проверяет наличие доступа к комментарию по id
+     *
+     * @param user
+     * @param comment
+     * @return
+     */
     public boolean checkComRole(User user, Comment comment) {
         return comment.getAuthor().getEmail().equals(user.getEmail())
                 || user.getRole().name().equals("ADMIN");

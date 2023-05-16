@@ -34,6 +34,9 @@ public class UserServiceImpl implements UserService {
     private final AvatarService avatarService;
     private final MyUserDetailsService myUserDetailsService;
 
+    /**
+    * Метод ищет авторизованного пользователя
+    */
     @Override
     public UserDto getUserMe(Authentication authentication) {
         log.info("Был вызван метод получения авторизованного пользователя");
@@ -42,6 +45,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDto(user);
     }
 
+    /**
+     * Метод достает пользователя из базы данных
+     * редактирует данные и сохраняет в базе
+     *
+     * @see UserMapper
+     */
     @Override
     public UserDto updateUser(UserDto dto, Authentication authentication) {
         log.info("Был вызван метод редактирования пользователя");
@@ -53,6 +62,11 @@ public class UserServiceImpl implements UserService {
         log.info("Пользователь успешно изменен");
         return userMapper.toDto(user);
     }
+    /**
+     * Метод меняет пароль
+     *
+     * @throws BadCredentialsException если пароль неверный
+     */
     @Override
     public void updatePassword(NewPasswordDto newPasswordDto, Authentication authentication) {
         log.info("Был вызван метод редактирования пароля пользователя");
@@ -67,6 +81,12 @@ public class UserServiceImpl implements UserService {
             throw new BadCredentialsException("Неверный пароль!");
         }
     }
+    /**
+     * Метод достает пользователя из базы данных,
+     * устанавливает или обновляет его аватар, затем сохраняет изменения в базе данных:
+     *
+     * @throws IOException если пользователь не найден
+     */
     public void updateUserImage(MultipartFile image, Authentication authentication) throws IOException {
         log.info("Был вызван метод редактирования аватара пользователя");
         User user = getUserByEmail(authentication.getName());
@@ -78,11 +98,13 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         }
     }
+    /**
+     * Метод достает пользователя из базы данных по его email
+     */
     public User getUserByEmail(String email) {
         log.info("Был вызвван метод получения пользователя по его email");
         return userRepository.findByEmail(email).orElseThrow(() ->
                 new UserNotFoundException("Пользователь не найден"));
     }
-
 }
 

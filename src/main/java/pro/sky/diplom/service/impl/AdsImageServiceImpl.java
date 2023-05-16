@@ -27,9 +27,14 @@ public class AdsImageServiceImpl implements AdsImageService {
     private final AdsImageRepository adsImageRepository;
     private final AdsRepository adsRepository;
 
+    /** Метод сохранения фото объявления в БД
+     *
+     * @param imageFile - картинка
+     * @return
+     */
     @Override
     public AdsImage uploadImage(MultipartFile imageFile) {
-        log.info("Был вызван метод сохранения фото в БД");
+        log.info("Был вызван метод сохранения фото объявления в БД");
         AdsImage image = new AdsImage();
         try {
             image.setData(imageFile.getBytes());
@@ -40,6 +45,11 @@ public class AdsImageServiceImpl implements AdsImageService {
         return adsImageRepository.save(image);
     }
 
+    /** Метод получения картинки объявления по айди объявления
+     *
+     * @param adsId - айди объявления
+     * @return
+     */
     @Override
     public AdsImage getAdsImageById(Integer adsId) {
         log.info("Был вызван метод получения картинки объявления по айди объявления");
@@ -53,6 +63,10 @@ public class AdsImageServiceImpl implements AdsImageService {
         return adsImage;
     }
 
+    /** метод удаления картинки объявления по айди объявления
+     *
+     * @param adsId - айди объявления
+     */
     @Override
     public void removeAdsImage(Integer adsId) {
         log.info("Был вызван метод удаления картинки объявления по айди объявления");
@@ -65,9 +79,15 @@ public class AdsImageServiceImpl implements AdsImageService {
         log.info("Полученa картинка пользователя");
         adsImageRepository.delete(adsImage);
     }
+
+    /** Метод получения объявления по его айди
+     *
+     * @param adsId - айди объявления
+     * @return
+     */
     @Override
     public Ads getAdsById(Integer adsId) {
-        log.info("<Был вызван метод получения объявления по его айди");
+        log.info("Был вызван метод получения объявления по его айди");
         return adsRepository.findById(adsId)
                 .orElseThrow(() -> new AdsNotFoundException("Объявление с id " + adsId + " не найдено!"));
 

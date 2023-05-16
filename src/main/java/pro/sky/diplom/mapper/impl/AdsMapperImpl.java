@@ -11,7 +11,11 @@ import pro.sky.diplom.mapper.AdsMapper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+/**
+ * Класс - сервис-маппер, содержащий реализацию интерфейса {@link AdsMapper}
+ *
+ * @author Одокиенко Екатерина
+ */
 @Slf4j
 @Component
 public class AdsMapperImpl implements AdsMapper {

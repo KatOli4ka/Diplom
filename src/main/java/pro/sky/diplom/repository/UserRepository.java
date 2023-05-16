@@ -11,7 +11,9 @@ import pro.sky.diplom.entity.User;
 
 import java.util.Optional;
 
-/** Механизм для хранения, извлечения, обновления, удаления и поиска объектов. */
+   /**
+    *  Механизм для хранения, извлечения, обновления, удаления и поиска объектов.
+    */
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
     /**

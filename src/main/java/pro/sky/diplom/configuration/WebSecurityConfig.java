@@ -18,6 +18,9 @@ import javax.persistence.Basic;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+/**
+ * Класс для конфигурации безопасности.
+ */
 @Slf4j
 @Configuration
 @EnableWebSecurity
@@ -43,8 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
-     * Цепочка фильтров безопасности
-     **/
+     * Метод конфигурирует безопасность для HTTP запросов, определяет права доступа и авторизацию.
+     *
+     * @param http
+     * @throws Exception в случае возникновения ошибок при настройке безопасности.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -60,12 +66,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Кодировщик паролей Spring security
-     **/
+     * Создает экземпляр кодировщика паролей и задает силу.
+     *
+     * @return PasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(8);
     }
+    /**
+     * Кодировщик паролей Spring security
+     **/
     @Override
     protected void configure (AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
         authenticationManagerBuilder.authenticationProvider(authenticationProvider());}

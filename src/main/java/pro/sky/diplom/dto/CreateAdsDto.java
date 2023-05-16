@@ -2,7 +2,11 @@ package pro.sky.diplom.dto;
 
 import lombok.Data;
 
-/**Класс, описывающий параметры создания объявления**/
+/**
+ * Класс, описывающий параметры создания объявления
+ *
+ * @author Одокиенко Екатерина
+ */
 @Data
 public class CreateAdsDto {
 

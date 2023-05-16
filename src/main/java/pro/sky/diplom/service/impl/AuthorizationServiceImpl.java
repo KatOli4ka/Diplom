@@ -23,6 +23,12 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private final MyUserDetailsService myUserDetailsService;
 
 
+    /** Метод авторизации пользователя
+     *
+     * @param username - логин/email пользователя
+     * @param password - пароль пользователя для входа в личный кабинет
+     * @return
+     */
     @Override
     public boolean login(String username, String password) {
         log.info("Был вызван метод введения пароля");
@@ -34,7 +40,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         log.info("Пользователь успешно авторизован!");
         return true;
     }
-
 }
 
 

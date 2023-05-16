@@ -6,8 +6,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.filter.OncePerRequestFilter;
 import pro.sky.diplom.entity.User;
 import pro.sky.diplom.repository.UserRepository;
+/**
+ * Метод находит пользователя по email и возвращает его данные: имя пользователя и пароль
+ *
+ * @return {@link UserDetails}
+ * @throws UsernameNotFoundException если пользователь не найден
+ * @see UserDetailsService
+ */
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,5 +28,4 @@ public class MyUserDetailsService implements UserDetailsService {
                 new UsernameNotFoundException("Пользователь не найден"));
         return new MyUserSecurity(user);
     }
-
 }

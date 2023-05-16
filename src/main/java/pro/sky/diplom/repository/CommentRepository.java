@@ -11,7 +11,9 @@ import pro.sky.diplom.entity.Comment;
 
 import java.util.Collection;
 
-/** Механизм для хранения, извлечения, обновления, удаления и поиска объектов. */
+/**
+ *  Механизм для хранения, извлечения, обновления, удаления и поиска объектов.
+ */
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     Collection<Comment> findAllByAdsId(Integer adsId);

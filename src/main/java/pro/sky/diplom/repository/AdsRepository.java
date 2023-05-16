@@ -12,7 +12,9 @@ import pro.sky.diplom.entity.Ads;
 
 import java.util.Collection;
 
-/** Механизм для хранения, извлечения, обновления, удаления и поиска объектов. */
+/**
+ *  Механизм для хранения, извлечения, обновления, удаления и поиска объектов.
+ */
 @Repository
 public interface AdsRepository extends JpaRepository<Ads, Integer> {
     /**

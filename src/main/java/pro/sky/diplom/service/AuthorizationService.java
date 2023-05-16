@@ -12,6 +12,4 @@ public interface AuthorizationService {
      * @return
      */
     boolean login(String userName, String password);
-
-
 }
