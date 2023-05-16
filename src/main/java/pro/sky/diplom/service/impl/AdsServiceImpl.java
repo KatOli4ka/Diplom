@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 @Service
 public class AdsServiceImpl implements AdsService {
     private final AdsRepository adsRepository;
-    private final AdsImageService imageService;
+    private final AdsImageService adsImageService;
     private final AdsMapper adsMapper;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
@@ -76,7 +76,7 @@ public class AdsServiceImpl implements AdsService {
         User user = getUserByEmail(authentication.getName());
         Ads newAds = adsMapper.fromDto(createAdsDto);
         newAds.setAuthor(user);
-        newAds.setAdsImage(imageService.uploadImage(imageFiles));
+        newAds.setAdsImage(adsImageService.uploadImage(imageFiles));
         log.info("Объявление добавлено!");
         return adsMapper.toDto(adsRepository.save(newAds));
     }
@@ -108,8 +108,7 @@ public class AdsServiceImpl implements AdsService {
     @Override
     public FullAdsDto getFullAdsDto(Integer adsId, Authentication authentication) {
         log.info("Был вызван метод получения всей информации по объявлению");
-        return adsMapper.toFullAdsDto(adsRepository.findById(adsId).
-                orElseThrow(() -> new AdsNotFoundException("Объявление с id " + adsId + " не найдено!")));
+        return adsMapper.toFullAdsDto(getAdsById(adsId));
     }
 
     @Override
@@ -117,8 +116,7 @@ public class AdsServiceImpl implements AdsService {
         log.info("Был вызван метод удаления объявления по айди");
         User user = getUserByEmail(authentication.getName());
         Ads ads = getAdsById(adsId);
-        if (!ads.getAuthor().getEmail().equals(user.getEmail())
-                && !user.getRole().name().equals("ADMIN")) {
+        if (checkAdsRole(user, ads)) {
             log.warn("Ой! У вас нет доступа!");
             return false;
         }
@@ -127,7 +125,7 @@ public class AdsServiceImpl implements AdsService {
                 .map(Comment::getId)
                 .collect(Collectors.toList());
         commentRepository.deleteAllById(adsComments);
-        imageService.removeAdsImage(adsId);
+        adsImageService.removeAdsImage(adsId);
         adsRepository.delete(ads);
         log.info("Объявление удалено");
         return true;
@@ -139,8 +137,7 @@ public class AdsServiceImpl implements AdsService {
         log.info("Был вызван метод изменения объявления");
         User user = getUserByEmail(authentication.getName());
         Ads updatedAds = getAdsById(adsId);
-        if (!updatedAds.getAuthor().getEmail().equals(user.getEmail())
-                && user.getRole().name().equals("ADMIN")) {
+        if (checkAdsRole(user, updatedAds)) {
             log.warn("Ой! У вас нет доступа!");
             throw new AccessDeniedException("У пользователя нет прав изменять объявление");
         }
@@ -158,13 +155,12 @@ public class AdsServiceImpl implements AdsService {
         if (adsImage != null) {
             User user = getUserByEmail(authentication.getName());
             Ads ads = getAdsById(id);
-            if (!ads.getAuthor().getEmail().equals(user.getEmail())
-                    && !user.getRole().name().equals("ADMIN")) {
+            if (checkAdsRole(user, ads)) {
                 log.warn("Ой! У вас нет доступа!");
                 throw new AccessDeniedException("У пользователя нет прав изменять картинку");
             }
-            imageService.removeAdsImage(id);
-            ads.setAdsImage(imageService.uploadImage(adsImage));
+            adsImageService.removeAdsImage(id);
+            ads.setAdsImage(adsImageService.uploadImage(adsImage));
             adsRepository.save(ads);
             log.info("Измененная картинка сохранена!");
             return ads.getAdsImage().getData();
@@ -180,6 +176,11 @@ public class AdsServiceImpl implements AdsService {
     public User getUserByEmail(String email) {
         log.info("Was invoked method for getting user by email");
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User is not found"));
+    }
+
+    public boolean checkAdsRole(User user, Ads ads) {
+        return !ads.getAuthor().getEmail().equals(user.getEmail())
+                && !user.getRole().name().equals("ADMIN");
     }
 }
 

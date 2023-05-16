@@ -41,8 +41,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment getCommentById(int comId) {
         log.info("Был вызван метод получения комментария по его айди");
-        return commentRepository.findById(comId)
-                .orElseThrow(() -> new CommentNotFoundException("Комментарий не найден!"));
+        return commentRepository.findById(comId).orElseThrow(() ->
+                new CommentNotFoundException("Комментарий не найден!"));
     }
 
     @Override
@@ -53,8 +53,7 @@ public class CommentServiceImpl implements CommentService {
             throw new CommentNotFoundException("Комментарий с id " + comId + " не принадлежит объявлению с id " + adsId);
         }
         User user = getUserByEmail(authentication.getName());
-        if (!comment.getAuthor().getEmail().equals(user.getEmail())
-                && !user.getRole().name().equals("ADMIN")) {
+        if (!checkComRole(user,comment)) {
             log.info("Ой! У вас нет доступа!");
             throw new AccessDeniedException("Ой! У вас нет доступа! Вы не можете изменить этот комментарий!");
         }
@@ -118,13 +117,16 @@ public class CommentServiceImpl implements CommentService {
             result.setResults(Collections.emptyList());
             log.info("Список комментариев получен!");
             return result;
-
         }
-
     }
     public User getUserByEmail(String email) {
-        log.info("Was invoked method for getting user by email");
+        log.info("Был вызван метод получения пользователя по email");
         return userRepository.findByEmail(email).orElseThrow(() ->
-                new UserNotFoundException("User is not found"));
+                new UserNotFoundException("Пользователь не найден"));
+    }
+
+    public boolean checkComRole(User user, Comment comment) {
+        return comment.getAuthor().getEmail().equals(user.getEmail())
+                || user.getRole().name().equals("ADMIN");
     }
 }

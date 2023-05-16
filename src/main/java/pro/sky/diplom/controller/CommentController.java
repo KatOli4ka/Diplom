@@ -42,14 +42,15 @@ public class CommentController {
                     ),
                     @ApiResponse(responseCode = "401",
                             description = "Ошибочный ввод имени и/или пароля")
-            }
+            },
+            tags = "Comments"
     )
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<ResponseWrapperComment> getAdsComments(@PathVariable Integer id) {
         log.info("Был вызван метод контроллера для получения комментария объявления");
-        ResponseWrapperComment responseWrapperComment = commentService.getCommentsByAdsId(id);
-        return ResponseEntity.ok(responseWrapperComment);
+        ResponseWrapperComment wrapperComment = commentService.getCommentsByAdsId(id);
+        return ResponseEntity.ok(wrapperComment);
     }
 
     @Operation(summary = "Добавить комментарий к объявлению",
@@ -64,7 +65,8 @@ public class CommentController {
                     ),
                     @ApiResponse(responseCode = "401",
                             description = "Ошибочный ввод имени и/или пароля")
-            }
+            },
+            tags = "Comments"
     )
 
     @PostMapping("/{id}/comments")
@@ -84,7 +86,8 @@ public class CommentController {
                             description = "Ошибочный ввод имени и/или пароля"),
                     @ApiResponse(responseCode = "403",
                             description = "Доступ к запрошенному ресурсу запрещен")
-            }
+            },
+            tags = "Comments"
     )
 
     @DeleteMapping("/{adsId}/comments/{comId}")
@@ -111,7 +114,8 @@ public class CommentController {
                             description = "Ошибочный ввод имени и/или пароля"),
                     @ApiResponse(responseCode = "403",
                             description = "Доступ к запрошенному ресурсу запрещен")
-            }
+            },
+            tags = "Comments"
     )
 
     @PatchMapping("/{adsId}/comments/{comId}")
