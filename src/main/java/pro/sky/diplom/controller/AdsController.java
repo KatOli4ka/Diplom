@@ -52,8 +52,7 @@ public class AdsController {
                                     schema = @Schema(implementation = AdsDto[].class)
                             )
                     )
-            },
-            tags = "Ads"
+            }
     )
 
     @GetMapping
@@ -75,8 +74,7 @@ public class AdsController {
                     ),
                     @ApiResponse(responseCode = "401",
                             description = "Для доступа к запрашиваемому ресурсу требуется аутентификация")
-            },
-            tags = "Ads"
+            }
     )
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -104,12 +102,11 @@ public class AdsController {
                     ),
                     @ApiResponse(responseCode = "401",
                             description = "Для доступа к запрашиваемому ресурсу требуется аутентификация")
-            },
-            tags = "Ads"
+            }
     )
 
     @GetMapping("/{id}")
-    public ResponseEntity<FullAdsDto> getFullAdsDto(@PathVariable Integer id, Authentication authentication) {
+    public ResponseEntity<FullAdsDto> getFullAdsDto(@PathVariable("id") Integer id, Authentication authentication) {
         log.info("Был вызван метод контроллера для получения всей информации об объявлении");
         return ResponseEntity.ok(adsService.getFullAdsDto(id, authentication));
     }
@@ -119,15 +116,14 @@ public class AdsController {
                     @ApiResponse(responseCode = "204", description = "Были переданы только заголовки без тела сообщения"),
                     @ApiResponse(responseCode = "401", description = "Для доступа к запрашиваемому ресурсу требуется аутентификация"),
                     @ApiResponse(responseCode = "403", description = "Доступ к запрошенному ресурсу запрещен")
-            },
-            tags = "Ads"
+            }
     )
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> removeAds(@PathVariable Integer id, Authentication authentication) throws IOException {
         log.info("Был вызван метод контроллера для удаления объявления");
         if (adsService.removeAdsById(id, authentication)) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
@@ -147,8 +143,7 @@ public class AdsController {
                             description = "Для доступа к запрашиваемому ресурсу требуется аутентификация"),
                     @ApiResponse(responseCode = "403",
                             description = "Доступ к запрошенному ресурсу запрещен")
-            },
-            tags = "Ads"
+            }
     )
 
     @PatchMapping("/{id}")
@@ -170,17 +165,15 @@ public class AdsController {
                     ),
                     @ApiResponse(responseCode = "401",
                             description = "Для доступа к запрашиваемому ресурсу требуется аутентификация")
-            },
-            tags = "Ads"
+            }
     )
 
     @GetMapping("/me")
     public ResponseEntity<ResponseWrapperAds> getAdsMe(Authentication authentication) {
         log.info("Был вызван метод контроллера для получения объявления авторизованного пользователя");
-        ResponseWrapperAds wrapperAds = adsService.getAdsMe(authentication);
-        return ResponseEntity.ok(wrapperAds);
+        return ResponseEntity.ok(adsService.getAdsMe(authentication));
     }
-    @SneakyThrows
+
     @Operation(summary = "Обновить картинку объявления",
             responses = {
                     @ApiResponse(
@@ -195,8 +188,7 @@ public class AdsController {
                             description = "Для доступа к запрашиваемому ресурсу требуется аутентификация"),
                     @ApiResponse(responseCode = "403",
                             description = "Доступ к запрошенному ресурсу запрещен")
-            },
-            tags = "AdsImage"
+            }
     )
 
     @PatchMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -205,7 +197,7 @@ public class AdsController {
                                                  @Parameter(in = ParameterIn.DEFAULT,
                                                          description = "Загрузите сюда новое фото",
                                                          schema = @Schema())
-                                                 @RequestPart(value = "image") MultipartFile image) throws IOException {
+                                                 @RequestPart(value = "image") @Valid MultipartFile image) throws IOException {
         log.info("Был вызван метод контроллера для обновления картинки объявления");
         adsService.updateAdsImage(id, image, authentication);
         return ResponseEntity.ok().build();
@@ -215,14 +207,13 @@ public class AdsController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Найденная картинка",
-                            content = @Content(
-                                    mediaType = MediaType.IMAGE_PNG_VALUE,
-                                    schema = @Schema(implementation = Byte[].class)
-                            )
+                            description = "Найденная картинка"
+//                            content = @Content(
+//                                    mediaType = MediaType.IMAGE_PNG_VALUE,
+//                                    schema = @Schema(implementation = Byte[].class)
+//                            )
                     )
-            },
-            tags = "AdsImage"
+            }
     )
     @GetMapping(value = "/{adsId}/image", produces = {MediaType.IMAGE_PNG_VALUE})
     public ResponseEntity<byte[]> getAdsImage(@PathVariable Integer adsId) {
