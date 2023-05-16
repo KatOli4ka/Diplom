@@ -28,6 +28,4 @@ public class Avatar {
     @Lob
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] data;
-
-    private static String test;
 }

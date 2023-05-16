@@ -3,7 +3,11 @@ package pro.sky.diplom.dto;
 
 import lombok.Data;
 
-/**Класс, описывающий параметры комментариев**/
+/**
+ * Класс, описывающий параметры комментариев
+ *
+ * @author Одокиенко Екатерина
+ */
 @Data
 public class CommentDto {
     /**id комментария**/

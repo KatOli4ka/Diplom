@@ -28,6 +28,12 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    /**
+     * Метод регистрирует пользователя в системе:
+     *
+     * @return {@link UserRepository#save(Object)}
+     * @see UserMapper
+     */
     @Override
     public boolean register(RegisterReqDto registerReqDto, Role role) {
         log.info("Был вызван метод регистрации!");

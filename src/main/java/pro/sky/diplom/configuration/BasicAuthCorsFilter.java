@@ -1,7 +1,5 @@
 package pro.sky.diplom.configuration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -12,7 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Класс базовый фильтр проверки подлинности
+ * Класс является компонентом и фильтром для обработки запросов.
+ * Он наследуется от класса OncePerRequestFilter и реализует один метод doFilterInternal().
+ * Он используется для обеспечения доступа к ресурсам с других источников (CORS) и авторизации.
+ *
+ * @see OncePerRequestFilter
  */
 @Component
 public class BasicAuthCorsFilter extends OncePerRequestFilter {

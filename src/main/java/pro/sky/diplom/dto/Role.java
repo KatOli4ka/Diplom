@@ -3,8 +3,9 @@ package pro.sky.diplom.dto;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- *
  * Enum Role - типы пользователя
+ *
+ * @author Одокиенко Екатерина
  */
 
 public enum Role implements GrantedAuthority {

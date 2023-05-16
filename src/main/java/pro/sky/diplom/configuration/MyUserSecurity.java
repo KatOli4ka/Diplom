@@ -10,6 +10,10 @@ import pro.sky.diplom.entity.User;
 import java.util.Collection;
 import java.util.List;
 
+/** Класс осуществления проверок безопасности при регистрации
+ *
+ */
+
 @RequiredArgsConstructor
 public class MyUserSecurity implements UserDetails {
     @Getter

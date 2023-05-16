@@ -7,7 +7,11 @@ import javax.validation.constraints.Pattern;
 
 import static pro.sky.diplom.dto.constant.Constant.EMAIL_CONST;
 import static pro.sky.diplom.dto.constant.Constant.PHONE_CONST;
-
+/**
+ * Класс DTO для передачи полной информации об объявлении
+ *
+ * @author Одокиенко Екатерина
+ */
 @Data
 public class FullAdsDto {
 
