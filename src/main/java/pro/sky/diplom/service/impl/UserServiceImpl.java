@@ -34,7 +34,6 @@ public class UserServiceImpl implements UserService {
     private final AvatarService avatarService;
     private final MyUserDetailsService myUserDetailsService;
 
-
     @Override
     public UserDto getUserMe(Authentication authentication) {
         log.info("Был вызван метод получения авторизованного пользователя");
@@ -58,7 +57,7 @@ public class UserServiceImpl implements UserService {
     public void updatePassword(NewPasswordDto newPasswordDto, Authentication authentication) {
         log.info("Был вызван метод редактирования пароля пользователя");
         User user = getUserByEmail(authentication.getName());
-        if (!passwordEncoder.matches(newPasswordDto.getCurrentPassword(), user.getPassword())) {
+        if (passwordEncoder.matches(newPasswordDto.getCurrentPassword(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPasswordDto.getNewPassword()));
             userRepository.save(user);
             log.info("Пароль сохранен");

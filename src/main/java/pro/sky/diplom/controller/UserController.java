@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pro.sky.diplom.dto.NewPasswordDto;
 import pro.sky.diplom.dto.UserDto;
+import pro.sky.diplom.entity.User;
 import pro.sky.diplom.service.AvatarService;
 import pro.sky.diplom.service.UserService;
+import pro.sky.diplom.service.impl.UserServiceImpl;
 
 /**
  * Класс контроллера объекта "Пользователь"
@@ -32,7 +34,7 @@ import pro.sky.diplom.service.UserService;
 @RequestMapping("/users")
 @Tag(name = "Пользователи", description = "UserController")
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private final AvatarService avatarService;
 
     @Operation(summary = "Обновление пароля",
@@ -111,7 +113,7 @@ public class UserController {
     )
 
     @GetMapping(value = "/{id}/image", produces = {MediaType.IMAGE_PNG_VALUE})
-    public ResponseEntity<byte[]> getAvatar(@PathVariable Integer id) {
+    public ResponseEntity<byte[]> getAvatar(@PathVariable("id") Integer id) {
         log.info("Был вызван метод контроллера для получения аватара авторизованного пользователя");
         return ResponseEntity.ok(avatarService.getAvatarById(id).getData());
     }
@@ -136,4 +138,11 @@ public class UserController {
         userService.updateUserImage(image, authentication);
         return ResponseEntity.ok().build();
     }
+    @GetMapping("/{id}/image")
+    public ResponseEntity<byte[]> getImageFromAuthUser(Authentication authentication, @PathVariable String id) {
+        User user = userService.getUserByEmail(authentication.getName());
+        byte[] i = user.getAvatar().getData();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(i);
+    }
+
 }
