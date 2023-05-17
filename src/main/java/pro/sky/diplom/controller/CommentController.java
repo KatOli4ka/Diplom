@@ -128,6 +128,12 @@ public class CommentController {
         return ResponseEntity.ok(commentService.updateComment(adsId, comId, updateCommentDto, authentication));
 
     }
+    @Operation(summary = "Получить картинку объявления",
+            responses = {
+                    @ApiResponse( responseCode = "200",description = "Картинка")
+            },
+            tags = "Comments"
+    )
     @GetMapping("/comments/{id}/image")
     public ResponseEntity<byte[]> getImageToComment(@PathVariable int id) {
         byte[] i = commentService.getCommentById(id).getAuthor().getAvatar().getData();

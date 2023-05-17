@@ -216,11 +216,7 @@ public class AdsController {
                     )
             }
     )
-    @GetMapping(value = "/{adsId}/image", produces = {MediaType.IMAGE_PNG_VALUE})
-    public ResponseEntity<byte[]> getAdsImage(@PathVariable Integer adsId) {
-        log.info("Был вызван метод контроллера для просмотра картинки объявления");
-        return ResponseEntity.ok(imageService.getAdsImageById(adsId).getData());
-    }
+
     @GetMapping("/{id}/image")
     public ResponseEntity<byte[]> getImageFromAuthUser(@PathVariable int id) {
         byte[] i = adsService.getAdsById(id).getAdsImage().getData();

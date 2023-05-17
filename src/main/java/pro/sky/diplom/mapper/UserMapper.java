@@ -11,9 +11,7 @@ import pro.sky.diplom.entity.User;
  */
 public interface UserMapper {
     UserDto toDto(User entity);
-
     User fromDto(UserDto dto);
-
     User fromDto(RegisterReqDto dto);
 
 

@@ -25,7 +25,8 @@ public interface AdsService {
      * @param authentication- данные аутентификации
      * @return Ads
      */
-    AdsDto addAds(CreateAdsDto createAdsDto, MultipartFile imageFiles, Authentication authentication) throws IOException;
+    AdsDto addAds(CreateAdsDto createAdsDto, MultipartFile imageFiles,
+                  Authentication authentication) throws IOException;
 
     /**
      * Метод получения всех объявлений
@@ -35,7 +36,7 @@ public interface AdsService {
     ResponseWrapperAds getAllAds();
 
     /**
-     * Метод получения коллекции объявлений аутентифицированного пользователя.
+     * Метод получения коллекции объявлений аутентифицированного пользователя
      *
      * @return Collection<Ads>
      */
