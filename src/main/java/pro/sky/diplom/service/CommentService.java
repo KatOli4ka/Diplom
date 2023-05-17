@@ -14,7 +14,7 @@ public interface CommentService {
     /**
      * Метод получения комментария по его айди
      *
-     * @param comId - айди объявления
+     * @param comId - айди комментария
      * @return Comment
      */
     Comment getCommentById(int comId);
@@ -30,8 +30,8 @@ public interface CommentService {
     /**
      * Метод добавления комментария пользователем
      *
-     * @param id          - айди объявления
-     * @param commentDto     - модель Dto комментария с именем автора, датой создания и самим текстом объявления
+     * @param id             - айди объявления
+     * @param commentDto     - модель Dto комментария
      * @param authentication - данные аутентификации
      * @return CommentDto
      */
@@ -47,7 +47,8 @@ public interface CommentService {
      * @return Comment
      */
 
-    CommentDto updateComment(Integer adsId, Integer comId, CommentDto updateComment, Authentication authentication);
+    CommentDto updateComment(Integer adsId, Integer comId, CommentDto updateComment,
+                             Authentication authentication);
 
     /**
      * Метод удаления комментария по его айди и айди объявления

@@ -111,10 +111,16 @@ public class UserController {
             },
             tags = "Avatar"
     )
-
+    @GetMapping("/{id}/image")
+    public ResponseEntity<byte[]> getImageFromAuthUser(Authentication authentication, @PathVariable String id) {
+        log.info("Был вызван метод контроллера для получения аватара авторизованного пользователя");
+        User user = userService.getUserByEmail(authentication.getName());
+        byte[] i = user.getAvatar().getData();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(i);
+    }
     @GetMapping(value = "/{id}/image", produces = {MediaType.IMAGE_PNG_VALUE})
     public ResponseEntity<byte[]> getAvatar(@PathVariable("id") Integer id) {
-        log.info("Был вызван метод контроллера для получения аватара авторизованного пользователя");
+        log.info("Был вызван метод контроллера для получения аватара пользователя");
         return ResponseEntity.ok(avatarService.getAvatarById(id).getData());
     }
 
@@ -138,11 +144,6 @@ public class UserController {
         userService.updateUserImage(image, authentication);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/{id}/image")
-    public ResponseEntity<byte[]> getImageFromAuthUser(Authentication authentication, @PathVariable String id) {
-        User user = userService.getUserByEmail(authentication.getName());
-        byte[] i = user.getAvatar().getData();
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(i);
-    }
+
 
 }

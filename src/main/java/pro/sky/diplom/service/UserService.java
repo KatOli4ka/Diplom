@@ -35,7 +35,6 @@ public interface UserService {
      *
      * @param newPasswordDto - пароль из Dto
      * @param authentication - данные аутентификации
-     * @return Возвращает true если пароль успешно изменен, иначе false
      */
     void updatePassword(NewPasswordDto newPasswordDto, Authentication authentication);
 

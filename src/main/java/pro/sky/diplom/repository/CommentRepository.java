@@ -1,21 +1,25 @@
 package pro.sky.diplom.repository;
 
-/**
- * Интерфейс CommentRepository для класса "Комментарий в объявлении"
- * @author Одокиенко Екатерина
- */
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pro.sky.diplom.entity.Comment;
 
 import java.util.Collection;
-
 /**
- *  Механизм для хранения, извлечения, обновления, удаления и поиска объектов.
+ * Интерфейс CommentRepository для класса "Комментарий в объявлении"
+ *
+ * @author Одокиенко Екатерина
  */
+
+/** Механизм для хранения, извлечения, обновления, удаления и поиска объектов */
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
+    /**
+     * Поиск всех комментариев по id объявления
+     *
+     * @param adsId - айди объявления
+     */
     Collection<Comment> findAllByAdsId(Integer adsId);
 
 }
