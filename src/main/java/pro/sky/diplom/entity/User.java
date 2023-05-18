@@ -1,9 +1,9 @@
 package pro.sky.diplom.entity;
 
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
-
+import pro.sky.diplom.dto.Role;
 /**
  * Класс сущности "Пользователь"
  *
@@ -60,4 +60,4 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
-
+}
