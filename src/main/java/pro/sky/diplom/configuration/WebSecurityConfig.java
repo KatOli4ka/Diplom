@@ -74,17 +74,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(8);
     }
-    /**
-     * Кодировщик паролей Spring security
-     **/
-    @Override
-    protected void configure (AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
-        authenticationManagerBuilder.authenticationProvider(authenticationProvider());}
-    @Basic
-    private AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userDetailsService);
-        auth.setPasswordEncoder(passwordEncoder());
-        return auth;
-    }
+
 }

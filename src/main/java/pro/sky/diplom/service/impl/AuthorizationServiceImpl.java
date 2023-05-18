@@ -3,6 +3,7 @@ package pro.sky.diplom.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ import pro.sky.diplom.service.AuthorizationService;
 @Service
 public class AuthorizationServiceImpl implements AuthorizationService {
     private final PasswordEncoder passwordEncoder;
-    private final MyUserDetailsService myUserDetailsService;
+    private final UserDetailsService myUserDetailsService;
 
 
     /** Метод авторизации пользователя

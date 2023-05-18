@@ -34,7 +34,7 @@ import pro.sky.diplom.service.impl.UserServiceImpl;
 @RequestMapping("/users")
 @Tag(name = "Пользователи", description = "UserController")
 public class UserController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final AvatarService avatarService;
 
     @Operation(summary = "Обновление пароля",

@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 import pro.sky.diplom.dto.NewPasswordDto;
 import pro.sky.diplom.dto.UserDto;
+import pro.sky.diplom.entity.User;
 
 import java.io.IOException;
 
@@ -45,6 +46,10 @@ public interface UserService {
      * @param authentication - данные аутентификации
      */
     void updateUserImage(MultipartFile image, Authentication authentication) throws IOException;
+    /**
+     * Метод достает пользователя из базы данных по его email
+     */
+    User getUserByEmail(String email);
 
 }
 
